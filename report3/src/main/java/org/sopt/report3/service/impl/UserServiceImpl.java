@@ -27,10 +27,10 @@ public class UserServiceImpl implements UserService {
         while (iterator.hasNext()) {
             User user = iterator.next();
             if (user.getUser_idx() == userIdx) {
-                return DefaultRes.res(HttpStatus.OK.value(), "유저있음", user);
+                return DefaultRes.res(HttpStatus.OK.value(), ResponseMessage.READ_USER, user);
             }
         }
-        return DefaultRes.res(HttpStatus.NOT_FOUND.value(), "유저없음");
+        return DefaultRes.res(HttpStatus.NOT_FOUND.value(), ResponseMessage.NOT_FOUND_USER);
     }
 
     @Override
@@ -39,10 +39,10 @@ public class UserServiceImpl implements UserService {
         while (iterator.hasNext()) {
             User user = iterator.next();
             if (user.getName().equals(name)) {
-                return DefaultRes.res(HttpStatus.OK.value(), "유저있음", user);
+                return DefaultRes.res(HttpStatus.OK.value(), ResponseMessage.READ_USER, user);
             }
         }
-        return DefaultRes.res(HttpStatus.NOT_FOUND.value(), "유저없음");
+        return DefaultRes.res(HttpStatus.NOT_FOUND.value(), ResponseMessage.NOT_FOUND_USER);
     }
 
     @Override
@@ -51,16 +51,16 @@ public class UserServiceImpl implements UserService {
         while (iterator.hasNext()) {
             User user = iterator.next();
             if (user.getPart().equals(part)) {
-                return DefaultRes.res(HttpStatus.OK.value(), "유저있음", user);
+                return DefaultRes.res(HttpStatus.OK.value(), ResponseMessage.READ_USER, user);
             }
         }
-        return DefaultRes.res(HttpStatus.NOT_FOUND.value(), "유저없음");
+        return DefaultRes.res(HttpStatus.NOT_FOUND.value(), ResponseMessage.NOT_FOUND_USER);
     }
 
     @Override
     public DefaultRes save(User user) {
         userList.add(user);
-        return DefaultRes.res(HttpStatus.OK.value(), "세이브 성공");
+        return DefaultRes.res(HttpStatus.OK.value(), ResponseMessage.CREATED_USER);
     }
 
     @Override
@@ -70,10 +70,10 @@ public class UserServiceImpl implements UserService {
             User olduser = iterator.next();
             if (olduser.getUser_idx() == userIdx) {
                 userList.set(olduser.getUser_idx(), user);
-                return DefaultRes.res(HttpStatus.OK.value(), "잘바뀜", user);
+                return DefaultRes.res(HttpStatus.OK.value(), ResponseMessage.UPDATE_USER, user);
             }
         }
-        return DefaultRes.res(HttpStatus.NOT_FOUND.value(), "안바뀜");
+        return DefaultRes.res(HttpStatus.NOT_FOUND.value(), ResponseMessage.NOT_FOUND_USER);
     }
 
     @Override
@@ -83,9 +83,9 @@ public class UserServiceImpl implements UserService {
             User user = iterator.next();
             if (user.getUser_idx() == userIdx) {
                 userList.remove(user);
-                return DefaultRes.res(HttpStatus.OK.value(), "지워짐");
+                return DefaultRes.res(HttpStatus.OK.value(), ResponseMessage.DELETE_USER);
             }
         }
-        return DefaultRes.res(HttpStatus.NOT_FOUND.value(), "안지워짐");
+        return DefaultRes.res(HttpStatus.NOT_FOUND.value(), ResponseMessage.NOT_FOUND_USER);
     }
 }
